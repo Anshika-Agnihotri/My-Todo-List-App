@@ -1,204 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Todo List App</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glossy Todo App</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
 
-    body {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: radial-gradient(circle at top, #1a1f2b, #0b0f1a);
-      padding: 20px;
-    }
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: radial-gradient(circle at top,#1f1c2c,#928dab);
+  padding:20px;
+}
 
-    /* GLASS CARD */
-    .todo-container {
-      width: 100%;
-      max-width: 420px;
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border-radius: 22px;
-      padding: 25px;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.6);
-      border: 1px solid rgba(255,255,255,0.15);
-    }
+/* MAIN CARD */
+.todo-container{
+  width:100%;
+  max-width:420px;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter: blur(18px);
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:20px;
+  padding:22px;
+  box-shadow:0 25px 60px rgba(0,0,0,0.4);
+}
 
-    h1 {
-      text-align: center;
-      font-weight: 600;
-      margin-bottom: 18px;
-      color: #ffffff;
-      letter-spacing: 1px;
-    }
+/* TITLE */
+h1{
+  text-align:center;
+  color:#fff;
+  margin-bottom:18px;
+  font-weight:600;
+  letter-spacing:1px;
+}
 
-    /* INPUT AREA */
-    .input-box {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
+/* INPUT AREA */
+.input-box{
+  display:flex;
+  gap:10px;
+}
 
-    input {
-      flex: 1;
-      padding: 12px 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.2);
-      outline: none;
-      font-size: 14px;
-      background: rgba(255,255,255,0.07);
-      color: #fff;
-      transition: 0.3s;
-    }
+input{
+  flex:1;
+  padding:12px;
+  border:none;
+  outline:none;
+  border-radius:12px;
+  background:rgba(255,255,255,0.2);
+  color:#fff;
+}
 
-    input::placeholder {
-      color: rgba(255,255,255,0.6);
-    }
+input::placeholder{
+  color:#eee;
+}
 
-    input:focus {
-      border-color: #00f5d4;
-      box-shadow: 0 0 10px rgba(0,245,212,0.4);
-    }
+/* ADD BUTTON */
+button{
+  padding:12px 14px;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  background:linear-gradient(135deg,#ffd700,#ffb700);
+  font-weight:600;
+  transition:0.3s;
+}
 
-    /* BUTTON */
-    button {
-      padding: 12px 16px;
-      border-radius: 12px;
-      border: none;
-      cursor: pointer;
-      background: linear-gradient(135deg, #00f5d4, #00bbf9);
-      color: #0b0f1a;
-      font-weight: 600;
-      transition: 0.3s;
-    }
+button:hover{
+  transform:scale(1.05);
+}
 
-    button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(0,245,212,0.5);
-    }
+/* LIST */
+ul{
+  list-style:none;
+  margin-top:18px;
+}
 
-    /* LIST */
-    ul {
-      list-style: none;
-    }
+li{
+  background:rgba(255,255,255,0.15);
+  margin-bottom:10px;
+  padding:12px;
+  border-radius:12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  color:#fff;
+  transition:0.3s;
+}
 
-    li {
-      background: rgba(255,255,255,0.07);
-      padding: 12px;
-      border-radius: 14px;
-      margin-bottom: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: 0.3s;
-    }
+/* COMPLETED */
+li.completed{
+  text-decoration:line-through;
+  opacity:0.6;
+}
 
-    li:hover {
-      transform: translateY(-2px);
-      background: rgba(255,255,255,0.12);
-    }
+/* ACTION BUTTONS */
+.actions button{
+  background:transparent;
+  color:#fff;
+  font-size:15px;
+  margin-left:8px;
+  padding:5px;
+}
 
-    li.completed {
-      text-decoration: line-through;
-      opacity: 0.5;
-    }
+.actions button:hover{
+  color:#ffd700;
+  transform:scale(1.2);
+}
 
-    /* ACTION BUTTONS */
-    .actions button {
-      background: transparent;
-      color: #fff;
-      font-size: 14px;
-      margin-left: 8px;
-      border: none;
-      cursor: pointer;
-      transition: 0.2s;
-    }
+/* RESPONSIVE */
+@media(max-width:480px){
+  .todo-container{
+    width:100%;
+    padding:18px;
+  }
 
-    .actions button:hover {
-      color: #00f5d4;
-      transform: scale(1.2);
-    }
+  input{
+    font-size:13px;
+  }
 
-    /* RESPONSIVE */
-    @media (max-width: 480px) {
-      .todo-container {
-        padding: 20px;
-        border-radius: 18px;
-      }
-
-      h1 {
-        font-size: 20px;
-      }
-
-      input {
-        font-size: 13px;
-      }
-
-      button {
-        padding: 11px 14px;
-      }
-    }
-  </style>
+  button{
+    padding:10px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <div class="todo-container">
-    <h1>My Todo List</h1>
+<div class="todo-container">
+  <h1>My Todo List</h1>
 
-    <div class="input-box">
-      <input type="text" id="taskInput" placeholder="Add a new task...">
-      <button onclick="addTask()">Add</button>
-    </div>
-
-    <ul id="taskList"></ul>
+  <div class="input-box">
+    <input type="text" id="taskInput" placeholder="Add a new task...">
+    <button onclick="addTask()">Add</button>
   </div>
 
-  <script>
-    const taskInput = document.getElementById("taskInput");
-    const taskList = document.getElementById("taskList");
+  <ul id="taskList"></ul>
+</div>
 
-    function addTask() {
-      if (taskInput.value === "") {
-        alert("Please enter a task");
-        return;
-      }
+<script>
+const taskInput = document.getElementById("taskInput");
+const taskList = document.getElementById("taskList");
 
-      const li = document.createElement("li");
-      li.innerHTML = `
-        <span>${taskInput.value}</span>
-        <div class="actions">
-          <button onclick="completeTask(this)">✔</button>
-          <button onclick="deleteTask(this)">✖</button>
-        </div>
-      `;
+function addTask(){
+  if(taskInput.value.trim() === ""){
+    alert("Please enter a task");
+    return;
+  }
 
-      taskList.appendChild(li);
-      taskInput.value = "";
-    }
+  const li = document.createElement("li");
 
-    function completeTask(btn) {
-      btn.parentElement.parentElement.classList.toggle("completed");
-    }
+  li.innerHTML = `
+    <span class="text">${taskInput.value}</span>
+    <div class="actions">
+      <button onclick="completeTask(this)">✔</button>
+      <button onclick="editTask(this)">✏</button>
+      <button onclick="deleteTask(this)">✖</button>
+    </div>
+  `;
 
-    function deleteTask(btn) {
-      btn.parentElement.parentElement.remove();
-    }
-  </script>
+  taskList.appendChild(li);
+  taskInput.value = "";
+}
+
+/* COMPLETE */
+function completeTask(btn){
+  btn.parentElement.parentElement.classList.toggle("completed");
+}
+
+/* DELETE */
+function deleteTask(btn){
+  btn.parentElement.parentElement.remove();
+}
+
+/* EDIT (NEW FEATURE) */
+function editTask(btn){
+  const li = btn.parentElement.parentElement;
+  const span = li.querySelector(".text");
+
+  const newText = prompt("Edit your task:", span.innerText);
+
+  if(newText !== null && newText.trim() !== ""){
+    span.innerText = newText;
+  }
+}
+</script>
 
 </body>
 </html>
